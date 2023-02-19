@@ -16,12 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from Ethereum.views import EthereumCreate,EthereumViewList,EthereumOnlineToken
+from Ethereum.views import TokenCreate,TokenViewList,TokenOnlineToken
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('tokens/create', EthereumCreate.as_view()),
-    path('tokens/list', EthereumViewList.as_view()),
-    path('tokens/total_supply', EthereumOnlineToken.as_view()),
+    path('tokens/create', TokenCreate.as_view()),
+    path('tokens/list', TokenViewList.as_view()),
+    path('tokens/total_supply', TokenOnlineToken.as_view()),
 ]
