@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv, find_dotenv
 from secrets import choice
 from web3 import Web3, HTTPProvider
+from django.core.management.utils import get_random_string
 import string
 
 load_dotenv(find_dotenv())
@@ -10,7 +11,8 @@ load_dotenv(find_dotenv())
 
 def random_srting():
     # Метод создания хеша токена (не уникального!)
-    return ''.join([choice(string.ascii_lowercase + string.digits * 4) for _ in range(20)])
+    chars = string.ascii_lowercase + string.digits
+    return get_random_string(20, chars)
 
 
 def mint(owner, media_url, unique_hash):
@@ -29,7 +31,7 @@ def mint(owner, media_url, unique_hash):
         'gas': 20000,
         'gasPrice': w3.eth.gas_price,
         'nonce': nonce})
-    # Так не смог получить для теста ETH в Metamask, tx_hash будет принимать знасение tx['data'][392:486],
+    # Так не смог получить для теста ETH в Metamask, tx_hash будет принимать значение tx['data'][392:486],
     # далее следует две строки кода, если бы были токены
     # signed_tx = w3.eth.account.sign_transaction(tx, os.getenv("PRIVATE_KEY"))
     # tx_hash = w3.eth.send_raw_transaction(signed_tx.rawTransaction)
