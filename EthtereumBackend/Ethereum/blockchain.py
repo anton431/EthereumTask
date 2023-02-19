@@ -1,7 +1,6 @@
 import json
 import os
 from dotenv import load_dotenv, find_dotenv
-from secrets import choice
 from web3 import Web3, HTTPProvider
 from django.core.management.utils import get_random_string
 import string
