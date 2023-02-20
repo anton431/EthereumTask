@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Ethereum.apps.EthereumConfig',
     'rest_framework',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
