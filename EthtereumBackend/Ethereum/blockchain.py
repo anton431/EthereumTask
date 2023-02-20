@@ -5,8 +5,18 @@ from web3 import Web3, HTTPProvider
 from django.core.management.utils import get_random_string
 import string
 
-load_dotenv(find_dotenv())
 
+load_dotenv(find_dotenv())
+infura_url = f'https://celo-mainnet.infura.io/v3/{os.getenv("API_Key")}'
+
+def get_contract(owner):
+    owner = Web3.toChecksumAddress(owner)
+    infura_url = f'https://celo-mainnet.infura.io/v3/{os.getenv("API_Key")}'
+    w3 = Web3(HTTPProvider(infura_url))
+    with open(r"C:\Users\anton\python\Ethereum\EthtereumBackend\Ethereum\Contract_ABI.json", "r") as read_file:
+        NFT_ABI = json.load(read_file)
+    nft_contract = w3.eth.contract(address=owner, abi=NFT_ABI)
+    return nft_contract
 
 def random_srting():
     # Метод создания хеша токена (не уникального!)
@@ -15,13 +25,8 @@ def random_srting():
 
 
 def mint(owner, media_url, unique_hash):
-    # Метод создания токена в блокчейне, возвращает хэш транзакции создания
-    owner = Web3.toChecksumAddress(owner)
-    infura_url = f'https://celo-mainnet.infura.io/v3/{os.getenv("API_Key")}'
     w3 = Web3(HTTPProvider(infura_url))
-    with open(r"C:\Users\anton\python\Ethereum\EthtereumBackend\Ethereum\Contract_ABI.json", "r") as read_file:
-        NFT_ABI = json.load(read_file)
-    nft_contract = w3.eth.contract(address=owner, abi=NFT_ABI)
+    nft_contract = get_contract(owner)
     nonce = w3.eth.get_transaction_count(owner)
     tx = nft_contract.functions.mint(
         owner=owner, uniqueHash=unique_hash, mediaURL=media_url
@@ -36,7 +41,8 @@ def mint(owner, media_url, unique_hash):
     # tx_hash = w3.eth.send_raw_transaction(signed_tx.rawTransaction)
     return tx['data'][392:486]
 
+def supply(owner):
+    nft_contract = get_contract(owner)
+    return nft_contract.functions.totalSupply().call()
 
-# def totalSupply():
-#     return _allTokens.length
 

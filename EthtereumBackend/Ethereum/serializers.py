@@ -7,9 +7,3 @@ class TokenSerializer(serializers.ModelSerializer):
         model = Token
         fields = ('__all__')
         read_only_fields = ('unique_hash', 'tx_hash')
-
-
-class TokenSerializerSupply(serializers.ModelSerializer):
-    class Meta:
-        model = Token
-        fields = ('__all__')

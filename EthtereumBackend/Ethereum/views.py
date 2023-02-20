@@ -1,12 +1,18 @@
 from django.shortcuts import render
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework.views import APIView
 
-from .blockchain import mint, random_srting
+from .blockchain import mint, random_srting, supply
 from .models import Token
 from .serializers import TokenSerializer,TokenSerializerSupply
 
+
+class TokenPagination(PageNumberPagination):
+    page_size = 200
+    page_size_query_param = 'page_size'
+    max_page_size = 500
 
 class TokenCreate(APIView):
     queryset = Token.objects.all()
@@ -26,13 +32,16 @@ class TokenCreate(APIView):
         )
         return Response({'token': TokenSerializer(token).data})
 
-
-
 class TokenViewList(generics.ListAPIView):
     queryset = Token.objects.all()
     serializer_class = TokenSerializer
+    pagination_class = TokenPagination
 
-class TokenOnlineToken(generics.ListAPIView):
+class TokenOnline(APIView):
     queryset = Token.objects.all()
     serializer_class = TokenSerializerSupply
+    def get(self, request):
+        owner = request.data['owner']
+        total_supply = supply(owner)
+        return Response({'result': total_supply})
 
