@@ -12,7 +12,7 @@ w3 = Web3(HTTPProvider(infura_url))
 
 def get_contract(owner):
     owner = Web3.toChecksumAddress(owner)
-    with open(r"C:\Users\anton\python\Ethereum\EthtereumBackend\Ethereum\Contract_ABI.json", "r") as read_file:
+    with open("Contract_ABI.json", "r") as read_file:
         NFT_ABI = json.load(read_file)
     nft_contract = w3.eth.contract(address=owner, abi=NFT_ABI)
     return nft_contract
