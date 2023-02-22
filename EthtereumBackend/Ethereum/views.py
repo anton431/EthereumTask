@@ -21,14 +21,14 @@ class TokenCreate(generics.CreateAPIView):
         serializater = TokenSerializer(data=request.data)
         serializater.is_valid(raise_exception=True)
         media_url = request.data['media_url']
-        owner = request.data['owner']
+        owner_metamask = request.data['owner']
         unique_hash = random_srting()
 
         token = Token.objects.create(
             unique_hash=unique_hash,
-            tx_hash=mint(owner, media_url,unique_hash),
+            tx_hash=mint(owner_metamask, media_url,unique_hash),
             media_url=media_url,
-            owner=owner
+            owner=owner_metamask
         )
         return Response({'token': TokenSerializer(token).data})
 
