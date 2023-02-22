@@ -17,7 +17,7 @@ class TokenCreate(generics.CreateAPIView):
     queryset = Token.objects.all()
     serializer_class = TokenSerializer
 
-    def post(self,request):
+    def post(self, request):
         serializater = TokenSerializer(data=request.data)
         serializater.is_valid(raise_exception=True)
         media_url = request.data['media_url']
@@ -26,11 +26,12 @@ class TokenCreate(generics.CreateAPIView):
 
         token = Token.objects.create(
             unique_hash=unique_hash,
-            tx_hash=mint(owner_metamask, media_url,unique_hash),
+            tx_hash=mint(owner_metamask, media_url, unique_hash),
             media_url=media_url,
             owner=owner_metamask
         )
         return Response({'token': TokenSerializer(token).data})
+
 
 class TokenViewList(generics.ListAPIView):
     "Выдает список всех обьектов модели Token"
@@ -38,11 +39,12 @@ class TokenViewList(generics.ListAPIView):
     serializer_class = TokenSerializer
     pagination_class = TokenPagination
 
+
 class TokenOnline(generics.ListAPIView):
     "Выдает в ответе информацию о текущем общем числе находящихся токенов в сети"
     queryset = Token.objects.all()
     serializer_class = TokenSerializer
+
     def get(self, request):
         total_supply = supply()
         return Response({'result': total_supply})
-
