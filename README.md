@@ -10,7 +10,7 @@ Blockchain framework: __Web3.py__<br>
 Blockchain: __Ethereum (TESTNET  Goerli)__<br>
 
 Optional requirements:<br>
-- Docker Desctop<br>
+- Docker Desktop<br>
 - Swagger
 
 ## API Views
