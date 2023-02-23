@@ -29,3 +29,12 @@ Optional requirements:<br>
 PRIVATE_KEY — your metamask key;<br>
 SECRET_KEY — django key;<br>
 owner — contract address.<br>
+
+## Launch
+
+>- Clone a repository<br>
+>- Go to the working directory in the terminal /EthtereumBackend<br>
+>- Execute commands in the terminal:<br>
+>>docker build .<br>
+docker-compose build<br>
+docker-compose up<br>
