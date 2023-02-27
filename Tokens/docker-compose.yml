@@ -5,7 +5,7 @@ services:
     build: .
     command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver --insecure 0.0.0.0:8000"
     volumes:
-      - .:/usr/src/EthtereumBackend/
+      - .:/usr/src/Tokens/
     ports:
       - "8000:8000"
     env_file:

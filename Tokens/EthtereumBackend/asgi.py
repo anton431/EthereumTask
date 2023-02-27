@@ -1,5 +1,5 @@
 """
-ASGI config for EthtereumBackend project.
+ASGI config for Tokens project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 

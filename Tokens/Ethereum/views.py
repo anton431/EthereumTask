@@ -1,6 +1,7 @@
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework import generics
+from rest_framework.views import APIView
 from .blockchain import mint, random_srting, supply
 from .models import Token
 from .serializers import TokenSerializer
@@ -40,11 +41,8 @@ class TokenViewList(generics.ListAPIView):
     pagination_class = TokenPagination
 
 
-class TokenOnline(generics.ListAPIView):
+class  TokenTotalSupply(APIView):
     "Выдает в ответе информацию о текущем общем числе находящихся токенов в сети"
-    queryset = Token.objects.all()
-    serializer_class = TokenSerializer
-
     def get(self, request):
         total_supply = supply()
         return Response({'result': total_supply})

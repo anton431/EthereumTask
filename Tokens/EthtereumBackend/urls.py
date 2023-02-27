@@ -1,4 +1,4 @@
-"""EthtereumBackend URL Configuration
+"""Tokens URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from Ethereum.views import TokenCreate,TokenViewList,TokenOnline
+from Ethereum.views import TokenCreate,TokenViewList, TokenTotalSupply
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
@@ -36,8 +36,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('tokens/create', TokenCreate.as_view()),
     path('tokens/list', TokenViewList.as_view()),
-    path('tokens/total_supply', TokenOnline.as_view()),
+    path('tokens/total_supply',  TokenTotalSupply.as_view()),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('swagger(?P<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
